@@ -1,11 +1,7 @@
 # ignore all
-/*
 
 # except: 
 ## git files
-!.gitignore
-!README.md
-!LICENSE
+
 ## whitelisted config directories config directories
-!eww
 

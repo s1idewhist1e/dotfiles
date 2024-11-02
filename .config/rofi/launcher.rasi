@@ -1,0 +1,141 @@
+/*******************************************************************************
+ * set ft=rasi
+ * Author : Max G (s1idewhist1e)
+ * Github : @s1idewhist1e
+ *
+ * rofi-wayland Version : 1.7.5+wayland3-2
+ ******************************************************************************/
+
+@theme "rose-pine"
+configuration {
+	modi: "window,drun,run";
+	// TODO font: ""
+	window-thumbnail: true;
+	show-icons: true;
+
+	display-window: "";
+	display-drun: "";
+	display-run: "";
+
+	drun-display-format: "{name}";
+	window-format: "{t} {n} {r}";
+
+
+}
+
+// Style options
+* {
+	/***** Color Settings *****/
+	background-color: @rose-pine-base;
+	light-background-color: @rose-pine-overlay;
+	accent-color: @rose-pine-love;
+	foreground-color: @rose-pine-text;
+	highlight-color: @rose-pine-highlight-high;
+	
+			
+
+	// TODO: font: "";
+	font: "Jetbrains Mono 10";
+	
+}
+
+window {
+	border-color: @accent-color;
+	text-color: @foreground-color;
+	border: 2px;
+	location: center;
+	anchor: center;
+	fullscreen: false;
+	width: 900px;
+	height: 480px;
+	
+	children: ["inputbar", "listview"];
+
+	border-radius: 40px 10px;
+}
+
+header {
+	border: inherit;
+	//height: 125px;
+	border-color: inherit;
+	orientation: horizontal;
+	//children: ["inputbar"];
+}
+
+inputbar {
+	orientation: horizontal;
+	children: ["entry", "mode-switcher"];
+	background-color: transparent;
+	background-image: url("~/.config/rofi/launcher-bg.jpg", width);
+	padding: 40px 25px;
+	spacing: 25px;
+	font: "Jetbrains Mono 12";
+	text-color: inherit;
+}
+
+entry {
+	enabled: true;
+	background-color: @light-background-color;
+	placeholder: "Search for something...";
+	width: 100px;
+	padding: 12px ;  
+	border-radius: 20px 5px;
+
+	text-color: inherit;
+}
+
+mode-switcher {
+	spacing: 25px;
+	background-color: transparent;
+	text-color: inherit;
+}
+
+button {
+	width: 45px;
+	border-radius: 20px 5px;
+	background-color: @light-background-color;
+	padding: 0 0 0 -5px;
+	text-color: inherit;
+}
+
+button selected {
+	background-color: @accent-color;
+	text-color: 	  @foreground-color;
+}
+
+listview {
+	padding: 20px 0;
+	enabled: true;
+	text-color: @foreground-color;	
+	columns: 6;
+	lines: 3;
+	spacing: 10px;
+	fixed-height: true;
+	fixed-width: true;
+}
+
+element {
+	spacing: 10px;
+	text-color:inherit;
+	orientation: vertical;
+	margin: 0 20px;
+	padding: 10px;
+	border-radius: 20px 5px;
+}
+
+element selected {
+	background-color: @highlight-color;
+	border: 2px;
+	border-color: @accent-color;
+}
+element-text {
+	background-color: inherit;
+	text-color: inherit;
+	vertical-align: 0.5;
+	horizontal-align: 0.5;
+}
+element-icon {
+	size: 48px;
+	background-color: inherit;
+}
+
