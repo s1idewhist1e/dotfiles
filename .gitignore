@@ -8,5 +8,6 @@
 !LICENSE
 ## whitelisted config directories config directories
 !eww
+!rofi
 !ags
 
