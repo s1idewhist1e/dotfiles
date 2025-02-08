@@ -1,6 +1,6 @@
 
 import { bind } from "astal"
-import { Gdk, Gtk } from "astal/gtk4";
+import { Gdk, Gtk, hook } from "astal/gtk4";
 
 import Tray from "gi://AstalTray"
 
@@ -10,42 +10,57 @@ function TrayItem({ item }: { item: Tray.TrayItem }) {
   const button = (<menubutton
     tooltipMarkup={bind(item, "tooltipMarkup")}
     menuModel={bind(item, "menuModel")}
-    //popover={false}
-
     setup={
-      (self: Gtk.Widget) => self.insert_action_group("dbusmenu", item.actionGroup)
-    }>gtk4
+      (self: Gtk.Widget) => hook(self, item, "notify::action-group", () => {
+        self.insert_action_group("dbusmenu", item.get_action_group());
+      })}>
 
     <image gicon={bind(item, "gicon")} />
   </menubutton>) as Gtk.MenuButton
 
-  const controller = new Gtk.EventControllerKey();
+  const cont = new Gtk.EventControllerLegacy();
 
-  controller.set_propagation_phase(Gtk.PropagationPhase.CAPTURE);
+  cont.set_propagation_phase(Gtk.PropagationPhase.CAPTURE);
 
-  controller.connect("key-pressed", (widget: Gtk.Widget, key) => {
-    console.log(widget, key, "Key pressed")
-    if (key === Gdk.BUTTON_SECONDARY) {
-      item.about_to_show();
-    }
-  });
+  cont.connect("event", (_: Gtk.EventController, ev: Gdk.Event) => {
 
-  controller.connect("key-released", (_c: Gtk.EventController, ev: Gdk.ButtonEvent) => {
-    console.log(_c, ev, "Key released");
-    const buttonType = ev.get_button();
+    if (ev.get_event_type() === Gdk.EventType.BUTTON_PRESS) {
 
-    const [_, x, y] = ev.get_position();
+      if ((ev as Gdk.ButtonEvent).get_button() === Gdk.BUTTON_SECONDARY) {
+        item.about_to_show();
+      }
 
-    if (buttonType === Gdk.BUTTON_PRIMARY) {
-      item.activate(x, y);
-    } else if (buttonType === Gdk.BUTTON_MIDDLE) {
-      item.secondary_activate(x, y);
+    } else if (ev.get_event_type() === Gdk.EventType.BUTTON_RELEASE) {
+
+      const state = ev as Gdk.ButtonEvent;
+
+      const mouse_button = state.get_button();
+      const [_, x, y] = state.get_position();
+
+      if (state.get_surface() !== button.get_native()?.get_surface()) {
+        // It was released on a popup (this happens for some reason)
+        return;
+      }
+
+      switch (mouse_button) {
+        case Gdk.BUTTON_PRIMARY:
+          item.activate(x, y);
+          break
+        case Gdk.BUTTON_MIDDLE:
+          item.secondary_activate(x, y);
+          break
+        case Gdk.BUTTON_SECONDARY:
+          button.popup();
+          break;
+      }
     } else {
-      button.popup();
+      return false;
     }
+    return true;
+
   });
 
-  button.add_controller(controller);
+  button.add_controller(cont);
 
   return button;
 }
