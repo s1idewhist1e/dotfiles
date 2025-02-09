@@ -10,12 +10,15 @@ type WorkspaceItemProps = {
   activeWorkspace?: number
 }
 
+const hypr = AstalHyprland.get_default();
+
 function WorkspaceItem({ workspace, activeWorkspace }: WorkspaceItemProps) {
-  const hypr = AstalHyprland.get_default();
   return <ToggleButton
     active={bind(hypr, "focused_workspace").as((w) => w == workspace)}
     onClicked={() => {
-      hypr.dispatch("workspace", workspace.id.toString())
+      if (workspace != hypr.focused_workspace) {
+        hypr.dispatch("workspace", workspace.id.toString());
+      }
     }}>
 
     <box>{bind(workspace, "name")}</box>
@@ -24,18 +27,20 @@ function WorkspaceItem({ workspace, activeWorkspace }: WorkspaceItemProps) {
 }
 
 export default function Workspaces() {
-  const hypr = AstalHyprland.get_default();
-
-
   return <box>
     {bind(hypr, "workspaces")
-      .as((w) =>
-        w.sort((a, b) => a.id - b.id)
-          .map((ws) => <WorkspaceItem
-            workspace={ws}
-            activeWorkspace={undefined} />
-          )
-      )
+      .as((workspaces) => {
+        const ws_toggles = workspaces
+          .sort((a, b) => a.id - b.id)
+          .map((ws) => <WorkspaceItem workspace={ws} /> as Gtk.ToggleButton)
+
+        for (let i = 0; i < ws_toggles.length - 1; ++i) {
+          ws_toggles[i].set_group(ws_toggles[i + 1]);
+        }
+
+        return ws_toggles;
+
+      })
     }
   </box>
 
