@@ -10,6 +10,7 @@ function TrayItem({ item }: { item: Tray.TrayItem }) {
   const button = (<menubutton
     tooltipMarkup={bind(item, "tooltipMarkup")}
     menuModel={bind(item, "menuModel")}
+    name={bind(item, "title")}
     setup={
       (self: Gtk.Widget) => hook(self, item, "notify::action-group", () => {
         self.insert_action_group("dbusmenu", item.get_action_group());
