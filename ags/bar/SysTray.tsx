@@ -10,7 +10,10 @@ function TrayItem({ item }: { item: Tray.TrayItem }) {
   const button = (<menubutton
     tooltipMarkup={bind(item, "tooltipMarkup")}
     menuModel={bind(item, "menuModel")}
-    name={bind(item, "title")}
+
+    // This becomes null if a monitor is disconnected
+    name={bind(item, "title").as((title) => title ?? "")}
+
     setup={
       (self: Gtk.Widget) => hook(self, item, "notify::action-group", () => {
         self.insert_action_group("dbusmenu", item.get_action_group());
@@ -71,7 +74,7 @@ export default function SysTray() {
     <box>
       {bind(tray, "items").as((items) => {
         return items
-          .sort((a, b) => a.title.localeCompare(b.title))
+          .sort((a, b) => a.title?.localeCompare(b.title))
           .map((item) => <TrayItem item={item} />)
       })}
     </box>
