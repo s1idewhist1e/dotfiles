@@ -1,11 +1,13 @@
 import { Gtk } from "astal/gtk4"
 import SysTray from "./SysTray"
 import { Variable } from "astal";
-import Workspaces from "./bar/Workspaces";
+import Workspaces from "./Workspaces";
+
+import { ToggleButton } from "../widgets/gtk/ToggleButton";
 
 export function CenterSection() {
   function onClick(self: Gtk.Button) {
-    console.log(self, time.get(), "Hewwo!!!! :3");
+    console.log(":3");
   }
 
   return <box
@@ -19,6 +21,8 @@ export function CenterSection() {
     >
       Welcome to AGS!
     </button>
+
+    <ToggleButton><box>:3</box></ToggleButton>
   </box>
 }
 
