@@ -1,7 +1,10 @@
 import { Gtk } from "astal/gtk4"
 import SysTray from "./SysTray"
 import { Variable } from "astal";
+
 import Workspaces from "./Workspaces";
+import Player from "./Player"
+
 
 import { ToggleButton } from "../widgets/gtk/ToggleButton";
 
@@ -21,6 +24,8 @@ export function CenterSection() {
     >
       Welcome to AGS!
     </button>
+
+    <Player />
 
     <ToggleButton><box>:3</box></ToggleButton>
   </box>
