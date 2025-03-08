@@ -1,12 +1,12 @@
+// vi: ft=rasi
 /*******************************************************************************
- * set ft=rasi
  * Author : Max G (s1idewhist1e)
  * Github : @s1idewhist1e
  *
  * rofi-wayland Version : 1.7.5+wayland3-2
  ******************************************************************************/
 
-@theme "rose-pine"
+@theme "dracula"
 configuration {
 	modi: "window,drun,run";
 	// TODO font: ""
@@ -26,13 +26,11 @@ configuration {
 // Style options
 * {
 	/***** Color Settings *****/
-	background-color: @rose-pine-base;
-	light-background-color: @rose-pine-overlay;
-	accent-color: @rose-pine-love;
-	foreground-color: @rose-pine-text;
-	highlight-color: @rose-pine-highlight-high;
-	
-			
+	background-color: @dracula-background;
+	light-background-color: @dracula-selection;
+	accent-color: @dracula-orange;
+	foreground-color: @dracula-foreground;
+	highlight-color: @dracula-comment;
 
 	// TODO: font: "";
 	font: "Jetbrains Mono 10";
@@ -66,8 +64,8 @@ inputbar {
 	orientation: horizontal;
 	children: ["entry", "mode-switcher"];
 	background-color: transparent;
-	background-image: url("~/.config/rofi/launcher-bg.jpg", width);
-	padding: 40px 25px;
+	background-image: url("~/.config/rofi/launcher-bg.png", width);
+	padding: calc(40px - 2px) 25px;
 	spacing: 25px;
 	font: "Jetbrains Mono 12";
 	text-color: inherit;
@@ -80,6 +78,8 @@ entry {
 	width: 100px;
 	padding: 12px ;  
 	border-radius: 20px 5px;
+    border: 2px 0 0 0;
+    border-color: @accent-color;
 
 	text-color: inherit;
 }
@@ -96,6 +96,8 @@ button {
 	background-color: @light-background-color;
 	padding: 0 0 0 -5px;
 	text-color: inherit;
+    border: 2px 0 0 0;
+    border-color: @accent-color;
 }
 
 button selected {
@@ -125,8 +127,9 @@ element {
 
 element selected {
 	background-color: @highlight-color;
-	border: 2px;
+	border: 0 0 2px 0;
 	border-color: @accent-color;
+    
 }
 element-text {
 	background-color: inherit;
