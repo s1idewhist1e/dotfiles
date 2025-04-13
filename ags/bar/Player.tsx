@@ -7,7 +7,7 @@ export default function Player() {
 
   const spotify = Mpris.Player.new("spotify");
 
-  return <box
+  const box = <box
     visible={
       bind<boolean>(
         Variable.derive(
@@ -20,5 +20,7 @@ export default function Player() {
     <box onButtonPressed={() => spotify.raise()}>{bind(spotify, "title")}</box>
     <image file={bind(spotify, "cover_art")} />
     <button onClicked={() => spotify.next()}>Next</button>
-  </box >;
+  </box >
+
+  return box;
 }

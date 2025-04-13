@@ -1,20 +1,66 @@
 // https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
 $fg-color: #{"@theme_fg_color"};
+
 $bg-color: #{"@theme_bg_color"};
+$bg-color-secondary: red;
+
+$border-radius-large: 12px;
+$border-radius-small: 3px;
+
 
 window.Bar {
+
+    min-height: 1.5rem;
+
     background: transparent;
     color: $fg-color;
     font-weight: bold;
 
+    font-size: 12px;
+
     >centerbox {
+        margin: 2px 2px 0px 2px;
+        background: transparent;
+
+      >* {
         background: $bg-color;
-        border-radius: 10px;
-        margin: 8px;
+        border-radius: $border-radius-large+2px $border-radius-small $border-radius-large $border-radius-small+2px;
+      }
     }
 
-    button {
-        border-radius: 8px;
-        margin: 2px;
-    }
 }
+
+button {
+  min-height: inherit;
+}
+
+.workspaces {
+  background-color: $bg-color-secondary;
+  border-radius: inherit;
+  background-clip: border-box;
+
+  padding: 0;
+}
+
+.workspace-selector {
+  background-color: $bg-color;
+  border-radius: $border-radius-large $border-radius-small $border-radius-large $border-radius-small;
+
+  padding: 2px;
+
+  &>* {
+    border-radius: 10px 1px 10px 1px;
+    background-color: transparent;
+    min-width: 1rem;
+
+    &:checked {
+      min-width: 3rem;
+    }
+
+  }
+}
+
+.window-title {
+  padding: 2px;
+}
+
