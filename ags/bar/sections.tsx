@@ -4,6 +4,7 @@ import { Variable } from "astal";
 
 import Workspaces from "./Workspaces";
 import Player from "./Player"
+import Clock from "./Clock"
 
 
 import { ToggleButton } from "../widgets/gtk/ToggleButton";
@@ -19,15 +20,14 @@ export function CenterSection() {
 
     <button
       onClicked={onClick}
-      hexpand
       halign={Gtk.Align.CENTER}
     >
       Welcome to AGS!
     </button>
 
-    <Player />
+    {/* <Player /> */}
 
-    <ToggleButton><box>:3</box></ToggleButton>
+    {/* <ToggleButton><box>:3</box></ToggleButton> */}
   </box>
 }
 
@@ -44,6 +44,7 @@ export function LeftSection() {
 
 export function RightSection() {
   return <box halign={Gtk.Align.END}>
+    <Clock />
     <SysTray />
   </box>
 }

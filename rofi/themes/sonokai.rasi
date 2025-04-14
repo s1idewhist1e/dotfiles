@@ -1,0 +1,31 @@
+// vi: ft=rasi
+// Adapted from @sainnhe/sonokai
+// https://github.com/sainnhe/sonokai
+* {
+    /**** Colors ****/
+    sonokai-black: #181819;
+    sonokai-bg-dim: #222327;
+    sonokai-bg0: #2C2E34;
+    sonokai-bg1: #33353F;
+    sonokai-bg2: #363944;
+    sonokai-bg3: #3B3E48;
+    sonokai-bg4: #414550;
+    sonokai-gray-dim: #595F6F;
+    sonokai-red: #FC5D7C;
+    sonokai-orange: #F39660;
+    sonokai-yellow: #E7C664;
+    sonokai-green: #9EF072;
+    sonokai-blue: #76CCE0;
+    sonokai-purple: #B39DF3;
+    sonokai-fg: #E2E2E3;
+    sonokai-gray: #7F8490;
+    sonokai-bg-red: #FF6077;
+    sonokai-diff-red: #55393D;
+    sonokai-diff-green: #394634;
+    sonokai-bg-green: #A7DF78;
+    sonokai-bg-blue: #85D3F2;
+    sonokai-diff-blue: #354157;
+    sonokai-diff-yellow: #4E432F;
+
+}
+
