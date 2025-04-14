@@ -1,5 +1,5 @@
+// vi: ft=rasi
 /*******************************************************************************
- * set ft=rasi
  * Author : Max G (s1idewhist1e)
  * Github : @s1idewhist1e
  *
@@ -66,7 +66,7 @@ inputbar {
 	orientation: horizontal;
 	children: ["entry", "mode-switcher"];
 	background-color: transparent;
-	background-image: url("~/.config/rofi/launcher-bg.jpg", width);
+	background-image: url("~/.config/rofi/launcher-bg.png", width);
 	padding: 40px 25px;
 	spacing: 25px;
 	font: "Jetbrains Mono 12";
