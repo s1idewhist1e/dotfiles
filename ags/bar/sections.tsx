@@ -15,12 +15,13 @@ export function CenterSection() {
   }
 
   return <box
-    halign={Gtk.Align.CENTER}>
+    halign={Gtk.Align.CENTER} cssClasses={["center-section"]}>
 
 
     <button
       onClicked={onClick}
       halign={Gtk.Align.CENTER}
+      cssClasses={["widget"]}
     >
       Welcome to AGS!
     </button>
@@ -33,18 +34,18 @@ export function CenterSection() {
 
 const time = Variable("").poll(1000, "date");
 
-export function LeftSection() {
+export function LeftSection({gdkmonitor}: {gdkmonitor: Gdk.Monitor}) {
   return <box
-    halign={Gtk.Align.START}>
+    halign={Gtk.Align.START} cssClasses={["left-section"]}>
 
-    <Workspaces />
+    <Workspaces cssClasses={["widget"]} />
 
   </box>
 }
 
 export function RightSection() {
-  return <box halign={Gtk.Align.END}>
-    <Clock />
-    <SysTray />
+  return <box halign={Gtk.Align.END} cssClasses={["right-section"]}>
+    <Clock cssClasses={["widget"]}/>
+    <SysTray cssClasses={["widget"]}/>
   </box>
 }

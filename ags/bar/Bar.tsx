@@ -16,7 +16,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         anchor={TOP | LEFT | RIGHT}
         application={App}>
         <centerbox cssName="centerbox">
-            <LeftSection />
+            <LeftSection gdkmonitor={gdkmonitor}/>
             <CenterSection />
             <RightSection />
         </centerbox>

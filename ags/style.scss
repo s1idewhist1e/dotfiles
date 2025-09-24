@@ -4,6 +4,8 @@ $fg-color: #{"@theme_fg_color"};
 $bg-color: #{"@theme_bg_color"};
 $bg-color-secondary: red;
 
+$selected-color: black;
+
 $border-radius-large: 12px;
 $border-radius-small: 3px;
 
@@ -19,42 +21,42 @@ window.Bar {
     font-size: 12px;
 
     >centerbox {
-        margin: 2px 2px 0px 2px;
+        margin: 2px;
         background: transparent;
 
-      >* {
-        background: $bg-color;
-        border-radius: $border-radius-large+2px $border-radius-small $border-radius-large $border-radius-small+2px;
-      }
     }
 
 }
 
-button {
-  min-height: inherit;
+.widget {
+   background-color: $bg-color;
+   border-radius: $border-radius-large+2px $border-radius-small $border-radius-large $border-radius-small+2px;
+ 
 }
 
 .workspaces {
-  background-color: $bg-color-secondary;
-  border-radius: inherit;
   background-clip: border-box;
 
+  background-color: $bg-color-secondary;
   padding: 0;
 }
-
+ 
 .workspace-selector {
   background-color: $bg-color;
   border-radius: $border-radius-large $border-radius-small $border-radius-large $border-radius-small;
 
   padding: 2px;
 
-  &>* {
+  >.workspace-item {
+    transition: min-width 0.25s ease-out;
+
     border-radius: 10px 1px 10px 1px;
     background-color: transparent;
     min-width: 1rem;
 
     &:checked {
-      min-width: 3rem;
+      min-width: 2.5rem;
+      background-color: $selected-color;
     }
 
   }

@@ -71,7 +71,7 @@ function TrayItem({ item }: { item: Tray.TrayItem }) {
 
 export default function SysTray() {
   return (
-    <box>
+    <box cssClasses={["widget"]}>
       {bind(tray, "items").as((items) => {
         return items
           .sort((a, b) => a.title?.localeCompare(b.title))
