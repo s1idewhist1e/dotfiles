@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 STEP="5%"
 
@@ -14,7 +14,7 @@ case $1 in
     ;;
   "down")
     IFS="," read -ra BRIGHTNESS_OUT <<< "$(brightnessctl -pm s "$STEP"-)"
-    if [ ${BRIGHTNESS_OUT[2]} -eq 0 ]; then
+    if [ "${BRIGHTNESS_OUT[2]}" -eq 0 ]; then
       brightnessctl s 1
     else
       brightnessctl s "$STEP"-
@@ -22,6 +22,6 @@ case $1 in
     ;;
   *)
     echo "Unrecognized command '$1'!"
-    exit -1
+    exit 64
     ;;
 esac

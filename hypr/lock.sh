@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/usr/bin/env sh
 
 # get screenshot
 mkdir -p /tmp/hyprlock

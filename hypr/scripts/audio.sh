@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 STEP="5%"
 SKIP_STEP="5"
@@ -36,6 +36,6 @@ case $1 in
     ;;
   *)
     echo "Unrecognized command '$1'!"
-    exit -1
+    exit 64
     ;;
 esac
