@@ -1,50 +1,50 @@
-import { Gtk } from "astal/gtk4"
+import { Gtk } from "ags/gtk4"
 import SysTray from "./SysTray"
-import { Variable } from "astal";
+// import { Variable } from "ags"
 
-import Workspaces from "./Workspaces";
+import Workspaces from "./Workspaces"
 import Player from "./Player"
 import Clock from "./Clock"
 
 
-import { ToggleButton } from "../widgets/gtk/ToggleButton";
+// import { ToggleButton } from "../widgets/gtk/ToggleButton";
 
 export function CenterSection() {
-  function onClick(self: Gtk.Button) {
-    console.log(":3");
-  }
+	function onClick(self: Gtk.Button) {
+		console.log(":3");
+	}
 
-  return <box
-    halign={Gtk.Align.CENTER}>
+	return <box
+		halign={Gtk.Align.CENTER}>
 
 
-    <button
-      onClicked={onClick}
-      halign={Gtk.Align.CENTER}
-    >
-      Welcome to AGS!
-    </button>
+		<button
+			onClicked={onClick}
+			halign={Gtk.Align.CENTER}
+		>
+			Welcome to AGS!
+		</button>
 
-    {/* <Player /> */}
+		{/* <Player /> */}
 
-    {/* <ToggleButton><box>:3</box></ToggleButton> */}
-  </box>
+		{/* <ToggleButton><box>:3</box></ToggleButton> */}
+	</box>
 }
 
-const time = Variable("").poll(1000, "date");
+// const time = Variable("").poll(1000, "date");
 
 export function LeftSection() {
-  return <box
-    halign={Gtk.Align.START}>
+	return <box
+		halign={Gtk.Align.START}>
 
-    <Workspaces />
+		<Workspaces />
 
-  </box>
+	</box>
 }
 
 export function RightSection() {
-  return <box halign={Gtk.Align.END}>
-    <Clock />
-    <SysTray />
-  </box>
+	return <box halign={Gtk.Align.END}>
+		<Clock />
+		<SysTray />
+	</box>
 }

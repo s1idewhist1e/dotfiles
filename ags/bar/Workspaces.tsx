@@ -1,78 +1,85 @@
 
-import { Gdk, Gtk } from "astal/gtk4"
-import { ToggleButton } from "../widgets/gtk/ToggleButton"
+import { Gdk, Gtk } from "ags/gtk4"
 
 import AstalHyprland from "gi://AstalHyprland?version=0.1";
-import { bind, Binding } from "astal";
+import { Accessor, createBinding, With } from "ags";
 
 type WorkspaceItemProps = {
-  workspace: AstalHyprland.Workspace,
-  activeWorkspace?: number
+	workspace: AstalHyprland.Workspace,
+	activeWorkspace?: number
 }
 
 const hypr = AstalHyprland.get_default();
 
 function WorkspaceItem({ workspace, activeWorkspace }: WorkspaceItemProps) {
-  return <ToggleButton
-    halign={Gtk.Align.CENTER}
+	let name: Accessor<string> = createBinding(workspace, "name").as((n) => n);
+	return <Gtk.ToggleButton
+		halign={Gtk.Align.CENTER}
 
-    cursor={Gdk.Cursor.new_from_name("pointer", null)}
+		cursor={Gdk.Cursor.new_from_name("pointer", null)}
 
-    canFocus={false}
+		canFocus={false}
 
-    active={bind(hypr, "focused_workspace").as((w) => w === workspace)}
-    onClicked={() => {
-      if (workspace != hypr.focused_workspace) {
-        hypr.dispatch("workspace", workspace.id.toString());
-      }
-    }}>
+		active={createBinding(hypr, "focused_workspace").as((w) => w === workspace)}
+		onClicked={() => {
+			if (workspace != hypr.focused_workspace) {
+				hypr.dispatch("workspace", workspace.id.toString());
+			}
+		}}>
 
-    <box>{
-      bind(workspace, "name").as((name) => {
-        return name;
-      })
-    }</box>
+		<With value={name}>
+			{(name) => <box>{name}</box>}
+		</With>
 
-  </ToggleButton>
+
+	</Gtk.ToggleButton>
 }
 
 function WorkspaceSelector() {
-  return <box cssClasses={["workspace-selector"]} spacing={2} >
-    {
-      bind(hypr, "workspaces")
-        .as((workspaces) => {
-          const ws_toggles = workspaces
-            .sort((a, b) => a.id - b.id)
-            .map((ws) => <WorkspaceItem workspace={ws} /> as Gtk.ToggleButton)
+	/*return (<box><With value={		})}
+		{(value) => <box cssClasses={["workspace-selector"]} spacing={2} >{value}</box>}
+		</ With></box >);*/
 
-          for (let i = 0; i < ws_toggles.length - 1; ++i) {
-            ws_toggles[i].set_group(ws_toggles[i + 1]);
-          }
+	let val: Accessor<Gtk.ToggleButton[]> =
+		createBinding(hypr, "workspaces")
+			.as((workspaces) => {
+				const ws_toggles = workspaces
+					.sort((a, b) => a.id - b.id)
+					.map((ws) => <WorkspaceItem workspace={ws} /> as Gtk.ToggleButton)
 
-          ws_toggles.forEach(element => {
-            element.child.set_halign(Gtk.Align.CENTER);
-          });
+				for (let i = 0; i < ws_toggles.length - 1; ++i) {
+					ws_toggles[i].set_group(ws_toggles[i + 1]);
+				}
 
-          return ws_toggles;
+				ws_toggles.forEach(element => {
+					element.child.set_halign(Gtk.Align.CENTER);
+				});
 
-        })
-    }
-  </box >
+				return ws_toggles;
+			});
+	return (
+		<With value={val}>
+			{(value) => <box
+				cssClasses={["workspace-selector"]}
+				spacing={2}
+			>{value}</box>}
+		</With>);
+
 }
 
 function WindowTitle() {
-  return <box
-    cssClasses={["window-title"]}
-    halign={Gtk.Align.CENTER}
-    valign={Gtk.Align.CENTER}
-  >
-    Placeholder
-  </box>
+	return <box
+		cssClasses={["window-title"]}
+		halign={Gtk.Align.CENTER}
+		valign={Gtk.Align.CENTER}
+	>
+		Placeholder
+	</box>
 }
 
 export default function Workspaces() {
-  return <box cssClasses={["workspaces"]}>
-    <WorkspaceSelector />
-    <WindowTitle />
-  </box>
+	return <box cssClasses={["workspaces"]}>
+		<WorkspaceSelector />
+		<WindowTitle />
+	</box>
 }
