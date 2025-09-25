@@ -11,6 +11,34 @@ type WorkspaceItemProps = {
 
 const hypr = AstalHyprland.get_default();
 
+function numberToChineseNumeral(num: number): string {
+	if (num === 0) return "〇";
+	if (num >= 10_000) return num.toString(); // cba to implement it for myriads
+	const digits = ["〇", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+	const powers = ["", "十", "百", "千"];
+
+	let power = 0;
+	let str = "";
+
+	while (num > 0) {
+		const currentDigit = num % 10;
+		if (currentDigit !== 0) {
+			str = powers[power] + str;
+
+			if (currentDigit !== 1 || power === 0) {
+				str = digits[currentDigit] + str;
+			}
+
+		}
+
+		num = Math.floor(num / 10);
+		power++;
+
+	}
+
+	return str;
+}
+
 function WorkspaceItem({ workspace, activeWorkspace }: WorkspaceItemProps) {
 	let name: Accessor<string> = createBinding(workspace, "name").as((n) => n);
 	return <Gtk.ToggleButton
@@ -18,6 +46,7 @@ function WorkspaceItem({ workspace, activeWorkspace }: WorkspaceItemProps) {
 
 		cursor={Gdk.Cursor.new_from_name("pointer", null)}
 
+		cssClasses={["workspace-item"]}
 		canFocus={false}
 
 		active={createBinding(hypr, "focused_workspace").as((w) => w === workspace)}
@@ -28,8 +57,9 @@ function WorkspaceItem({ workspace, activeWorkspace }: WorkspaceItemProps) {
 		}}>
 
 		<With value={name}>
-			{(name) => <box>{name}</box>}
+			{(name) => <box>{numberToChineseNumeral(+name || 0)}</box>}
 		</With>
+
 
 
 	</Gtk.ToggleButton>
@@ -68,17 +98,21 @@ function WorkspaceSelector() {
 }
 
 function WindowTitle() {
-	return <box
-		cssClasses={["window-title"]}
-		halign={Gtk.Align.CENTER}
-		valign={Gtk.Align.CENTER}
-	>
-		Placeholder
-	</box>
+	let acc: Accessor<string> = createBinding(hypr, "focused_client").as((client) => client.get_title());
+	return (
+		<With value={acc}>
+			{(v) => <box
+				cssClasses={["window-title"]}
+				halign={Gtk.Align.CENTER}
+				valign={Gtk.Align.CENTER}>
+				{v}
+			</box>}
+		</With>);
+
 }
 
 export default function Workspaces() {
-	return <box cssClasses={["workspaces"]}>
+	return <box cssClasses={["workspaces", "widget"]}>
 		<WorkspaceSelector />
 		<WindowTitle />
 	</box>

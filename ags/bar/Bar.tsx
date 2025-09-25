@@ -8,7 +8,6 @@ const time = createPoll("", 1000, "date");
 export default function Bar(gdkmonitor: Gdk.Monitor) {
 	const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
 
-
 	return (<window
 		visible
 		cssClasses={["Bar"]}
@@ -17,7 +16,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 		anchor={TOP | LEFT | RIGHT}
 		application={App}>
 		<centerbox>
-			<LeftSection $type="start" />
+			<LeftSection $type="start" gdkmonitor={gdkmonitor} />
 			<CenterSection $type="center" />
 			<RightSection $type="end" />
 		</centerbox>

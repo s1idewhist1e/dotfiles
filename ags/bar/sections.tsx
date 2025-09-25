@@ -1,4 +1,4 @@
-import { Gtk } from "ags/gtk4"
+import { Gdk, Gtk } from "ags/gtk4"
 import SysTray from "./SysTray"
 // import { Variable } from "ags"
 
@@ -14,37 +14,33 @@ export function CenterSection() {
 		console.log(":3");
 	}
 
-	return <box
-		halign={Gtk.Align.CENTER}>
-
-
-		<button
-			onClicked={onClick}
+	return <box>
+		< button onClicked={onClick}
 			halign={Gtk.Align.CENTER}
-		>
+			cssClasses={["widget"]} >
 			Welcome to AGS!
 		</button>
 
 		{/* <Player /> */}
 
 		{/* <ToggleButton><box>:3</box></ToggleButton> */}
-	</box>
+	</box >;
 }
 
 // const time = Variable("").poll(1000, "date");
 
-export function LeftSection() {
+export function LeftSection({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
 	return <box
-		halign={Gtk.Align.START}>
+		halign={Gtk.Align.START} cssClasses={["left-section"]}>
 
-		<Workspaces />
+		<Workspaces cssClasses={["widget"]} />
 
 	</box>
 }
 
 export function RightSection() {
-	return <box halign={Gtk.Align.END}>
-		<Clock />
-		<SysTray />
+	return <box halign={Gtk.Align.END} cssClasses={["right-section"]}>
+		<Clock cssClasses={["widget"]} />
+		<SysTray cssClasses={["widget"]} />
 	</box>
 }
